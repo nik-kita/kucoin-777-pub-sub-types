@@ -10,5 +10,3 @@ export enum RootWsMessageEnum {
     CONTINUE = 'continue',
     EXIT = 'exit',
 }
-
-export type FromRootToWs = Record<RootWsChannelEnum, RootWsMessageEnum>;
