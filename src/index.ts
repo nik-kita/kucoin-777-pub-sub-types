@@ -21,7 +21,7 @@ export enum PubSubFromServer {
   CLIENT_DISCONNECT = 'client-disconnect'
 }
 
-export default {
+export const PubSub = {
   ['to:ws']: {
     open() {
       return JSON.stringify({ _: PubSubToWs.OPEN });
@@ -53,3 +53,5 @@ export default {
     }
   }
 };
+
+export type TPubSubChannel = keyof typeof PubSub;
