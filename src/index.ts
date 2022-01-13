@@ -12,7 +12,7 @@ export enum PubSubFromWs {
   CLOSE = 'close',
 }
 
-export enum PubSubClient {
+export enum PubSubFromClient {
 
 }
 
@@ -21,8 +21,14 @@ export enum PubSubFromServer {
   CLIENT_DISCONNECT = 'client-disconnect'
 }
 
+export enum PubSubChannel {
+  TO_WS = 'to:ws',
+  FROM_WS = 'from:ws',
+  FROM_SERVER = 'from:server',
+}
+
 export const PubSub = {
-  ['to:ws']: {
+  [PubSubChannel.TO_WS]: {
     open() {
       return JSON.stringify({ _: PubSubToWs.OPEN });
     },
@@ -36,7 +42,7 @@ export const PubSub = {
       return JSON.stringify({ ...subscription, _: PubSubToWs.UNSUBSCRIBE })
     }
   },
-  ['from:ws']: {
+  [PubSubChannel.FROM_WS]: {
     open() {
       return JSON.stringify({ _: PubSubFromWs.OPEN });
     },
@@ -44,7 +50,7 @@ export const PubSub = {
       return JSON.stringify({ _: PubSubFromWs.CLOSE });
     }
   },
-  ['from:server']: {
+  [PubSubChannel.FROM_SERVER]: {
     clientConnect() {
       return JSON.stringify({ _: PubSubFromServer.CLIENT_CONNECT });
     },
@@ -53,5 +59,3 @@ export const PubSub = {
     }
   }
 };
-
-export type TPubSubChannel = keyof typeof PubSub;
