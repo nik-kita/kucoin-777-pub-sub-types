@@ -1,4 +1,4 @@
-import { TWsMarketTickerPub } from '@nik-kita/kucoin-777-ws-types';
+import { TWsMarketTickerPub, TWsMarketTickerSub, WsSubjectEnum } from '@nik-kita/kucoin-777-ws-types';
 
 export enum PubSubToWs {
   SUBSCRIBE = 'subscribe',
@@ -35,11 +35,11 @@ export const PubSub = {
     close() {
       return JSON.stringify({ _: PubSubToWs.CLOSE });
     },
-    subscribe(subscription: TWsMarketTickerPub) {
-      return JSON.stringify({...subscription, _: PubSubToWs.SUBSCRIBE });
+    subscribe(subscription: { subject: WsSubjectEnum, payload?: any }) {
+      return JSON.stringify({ _: PubSubToWs.SUBSCRIBE, ...subscription });
     },
-    unsubscribe(subscription: TWsMarketTickerPub) {
-      return JSON.stringify({ ...subscription, _: PubSubToWs.UNSUBSCRIBE })
+    unsubscribe(subscription: { subject: WsSubjectEnum, payload?: any }) {
+      return JSON.stringify({ _: PubSubToWs.UNSUBSCRIBE, ...subscription })
     }
   },
   [PubSubChannel.FROM_WS]: {
